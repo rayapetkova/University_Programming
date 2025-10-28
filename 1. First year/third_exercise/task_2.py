@@ -3,8 +3,6 @@ import random
 nums_list = []
 count_nums = int(input())
 
-final_list = []
-
 for i in range(count_nums):
     random_number = random.randint(0, 100)
     nums_list.append(random_number)
