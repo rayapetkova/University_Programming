@@ -107,6 +107,29 @@ class Customer:
         return f'Customer: {self.name}, {self.phone}, {self.licence}'
 
 
+class Reservation:
+    def __init__(self, car, customer, days):
+        self.car = car
+        self.customer = customer
+        self.days = days
+        self.final_price = car.rent_per_day() * days
+        self.status = 'Pending'
+
+    def activate(self):
+        if self.customer.can_rent_a_car():
+            self.status = 'Active'
+            return 'Reservation successfully activated!'
+
+    def complete(self):
+        if self.customer.can_rent_a_car() and self.status == 'Active':
+            self.status = 'Completed'
+            return 'Reservation successfully completed!'
+
+    def cancel(self):
+        if self.customer.can_rent_a_car():
+            self.status = 'Cancelled'
+            return 'Reservation successfully cancelled!'
+
 
 economy_car = EconomyCar(1, 'neshto1', 'neshto1', 2007, 40, 10000, 'fuel1', 'licence1', True)
 premium_car = EconomyCar(2, 'neshto2', 'neshto2', 2010, 50, 20000, 'fuel2', 'licence2', False)
