@@ -228,6 +228,7 @@ class CarRental:
         return f"Total income: {total_income}\n" \
                f"Customers with active reservations: {'; '.join(customers_with_active_reservations)}"
 
+
 economy_car = EconomyCar(1, 'neshto1', 'neshto1', 2007, 40, 10000, 'fuel1', 'licence1', True)
 premium_car = EconomyCar(2, 'neshto2', 'neshto2', 2010, 50, 20000, 'fuel2', 'licence2', False)
 sqv_car = EconomyCar(3, 'neshto3', 'neshto3', 2017, 60, 30000, 'fuel3', 'licence3', True)
