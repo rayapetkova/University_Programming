@@ -131,6 +131,103 @@ class Reservation:
             return 'Reservation successfully cancelled!'
 
 
+class CarRental:
+    def __init__(self, customers, cars=[], reservations=[]):
+        self.customers = customers
+        self.cars = cars
+        self.reservations = reservations
+
+    def add_car(self, car):
+        if car not in self.cars:
+            self.cars.append(car)
+            return 'Successfully added car!'
+
+        return 'Cannot add car! Car is already in list!'
+
+    def remove_car(self, car):
+        if car in self.cars:
+            self.cars.remove(car)
+            return 'Successfully removed car!'
+
+        return 'Car not in list!'
+
+    def available_cars(self):
+        return [car for car in self.cars if car.is_available]
+
+    def find_car(self, brand, model):
+        searched_car = None
+
+        for car in self.cars:
+            if car.brand == brand and car.model == model:
+                searched_car = car
+
+        return searched_car if searched_car else 'There is no such car!'
+
+    def add_customer(self, customer):
+        if customer not in self.customers:
+            self.customers.append(customer)
+            return 'Successfully added customer!'
+
+        return 'Cannot add customer! Customer is already in list!'
+
+    def remove_customer(self, customer):
+        if customer in self.customers:
+            self.customers.remove(customer)
+            return 'Successfully removed customer!'
+
+        return 'Customer not in list!'
+
+    def find_customer_by_phone_number(self, phone_number):
+        searched_customer = None
+
+        for customer in self.customers:
+            if customer.phone == phone_number:
+                searched_customer = customer
+
+        return searched_customer if searched_customer else 'There is no such customer!'
+
+    def add_reservation(self, car, customer, days):
+        reservation = Reservation(car, customer, days)
+
+        if reservation not in self.reservations:
+            self.reservations.append(reservation)
+            return 'Successfully added reservation!'
+
+        return 'Reservation already in list!'
+
+    def activate_reservation(self, reservation):
+        if reservation in self.reservations:
+            reservation.activate()
+            return 'Successfully activated reservation!'
+
+        return 'There is no such reservation!'
+
+    def complete_reservation(self, reservation):
+        if reservation in self.reservations:
+            reservation.complete()
+        else:
+            return 'There is no such reservation!'
+
+    def cancel_reservation(self, reservation):
+        if reservation in self.reservations:
+            reservation.cancel()
+        else:
+            return 'There is no such reservation!'
+
+    def active_reservations(self):
+        return [reservation for reservation in self.reservations if reservation.status == 'Active']
+
+    def completed_reservations(self):
+        return [reservation for reservation in self.reservations if reservation.status == 'Completed']
+
+    def report(self):
+        total_income = sum([reservation.final_price for reservation in self.reservations])
+        customers_with_active_reservations = [reservation.customer for reservation in self.reservations if
+                                              reservation.status == 'Active']
+
+        return f"Total income: {total_income}\n" \
+               f"Customers with active reservations: {'; '.join(customers_with_active_reservations)}"
+
 economy_car = EconomyCar(1, 'neshto1', 'neshto1', 2007, 40, 10000, 'fuel1', 'licence1', True)
 premium_car = EconomyCar(2, 'neshto2', 'neshto2', 2010, 50, 20000, 'fuel2', 'licence2', False)
 sqv_car = EconomyCar(3, 'neshto3', 'neshto3', 2017, 60, 30000, 'fuel3', 'licence3', True)
