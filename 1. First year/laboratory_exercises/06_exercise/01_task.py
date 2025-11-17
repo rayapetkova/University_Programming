@@ -31,4 +31,52 @@ class Car(ABC):
                f"Is available: {self.is_available()}"
 
 
+class EconomyCar(Car):
+    def __init__(self, id, brand, year, price_per_day, mileage, type_fuel, licence, available):
+        super().__init__(id, brand, year, price_per_day, mileage, type_fuel, licence, available)
+
+    def rent_per_day(self):
+        rent_per_day = self.price_per_day - 0.1 * self.price_per_day
+
+        return f"Rent per day: {rent_per_day}"
+
+
+class PremiumCar(Car):
+    def __init__(self, id, brand, year, price_per_day, mileage, type_fuel, licence, available):
+        super().__init__(id, brand, year, price_per_day, mileage, type_fuel, licence, available)
+
+    def rent_per_day(self):
+        rent_per_day = self.price_per_day + 0.5 * self.price_per_day
+
+        return f"Rent per day: {rent_per_day}"
+
+
+class SqvCar(Car):
+    def __init__(self, id, brand, year, price_per_day, mileage, type_fuel, licence, available):
+        super().__init__(id, brand, year, price_per_day, mileage, type_fuel, licence, available)
+
+    def rent_per_day(self):
+        rent_per_day = self.price_per_day + 0.3 * self.price_per_day
+
+        return f"Rent per day: {rent_per_day}"
+
+
+class ElectricCar(Car):
+    def __init__(self, id, brand, year, price_per_day, mileage, type_fuel, licence, available):
+        super().__init__(id, brand, year, price_per_day, mileage, type_fuel, licence, available)
+
+    def rent_per_day(self):
+        rent_per_day = self.price_per_day - 0.2 * self.price_per_day
+
+        return f"Rent per day: {rent_per_day}"
+
+
+economy_car = EconomyCar(1, 'neshto1', 2007, 40, 10000, 'fuel1', 'licence1', True)
+premium_car = EconomyCar(2, 'neshto2', 2010, 50, 20000, 'fuel2', 'licence2', False)
+sqv_car = EconomyCar(3, 'neshto3', 2017, 60, 30000, 'fuel3', 'licence3', True)
+electric_car = ElectricCar(4, 'neshto4', 2023, 45, 25000, 'fuel4', 'licence4', False)
+
+print(economy_car)
+print(premium_car)
+print(sqv_car)
 print(electric_car)
