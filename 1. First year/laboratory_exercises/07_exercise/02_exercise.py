@@ -19,4 +19,3 @@ except Exception as e_e:
     print(e_e)
 else:
     print(f'You entered a valid positive number: {number}')
-

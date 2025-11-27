@@ -28,4 +28,3 @@ except PasswordError as p_e:
     print(f'Invalid password: {p_e}')
 else:
     print('Password is valid')
-
