@@ -6,7 +6,7 @@ int main() {
     printf("Points: ");
     scanf("%d", &points);
 
-    int bonus = 0;
+    double bonus = 0;
 
     if (points > 1000) {
         bonus += 0.1 * points;
@@ -26,8 +26,8 @@ int main() {
 
     points += bonus;
 
-    printf("Bonus: %d\n", bonus);
-    printf("Points after bonus: %d", points);
+    printf("Bonus: %.2lf\n", bonus);
+    printf("Points after bonus: %.2lf", points);
 
     return 0;
 }
