@@ -17,7 +17,7 @@ typedef struct Student {
     int coursesNumbers[10];
 } student;
 
-int saveCourses(course *courses, int numCourses, char lecturer[65], char startDate[11], char endDate[11]) {
+int saveCourses(course courses[], int numCourses, char lecturer[65], char startDate[11], char endDate[11]) {
     FILE *textFile = fopen("course_info.txt", "w");
 
     if (textFile == NULL) {
@@ -41,7 +41,7 @@ int saveCourses(course *courses, int numCourses, char lecturer[65], char startDa
         sscanf(courses[i].startDate, "%d.%d.%d", &courseMonth, &courseDay, &courseYear);
         int courseDateNum = courseYear * 10000 + courseMonth * 100 + courseDay;
 
-        if (strcmp(courses[i].lecturer, lecturer) == 0 && courseDateNum >= start && coursesDateNum <= end) {
+        if (strcmp(courses[i].lecturer, lecturer) == 0 && courseDateNum >= start && courseDateNum <= end) {
             fprintf(textFile, "%lld:%s:%s-%d\n", courses[i].id, courses[i].name, courses[i].startDate, courses[i].studentsCount);
             allCourses++;
         }
@@ -51,7 +51,7 @@ int saveCourses(course *courses, int numCourses, char lecturer[65], char startDa
     return allCourses;
 }
 
-int enrollStudentInCourse(course *courses, int numCourses, student *students, int numStudents, long long facultyNum, long long courseId) {
+int enrollStudentInCourse(course courses[], int numCourses, student *students, int numStudents, long long facultyNum, long long courseId) {
     int courseIdx = -1;
     int studentIdx = -1;
 
