@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -6,29 +9,36 @@ public class Main {
     public static void main (String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Enter file path: ");
+        String path = scanner.nextLine();
+
         WebsiteStatistics statistics = new WebsiteStatistics();
 
-        while (true) {
-            String line = scanner.nextLine();
+        try {
+            BufferedReader websitesDataReader = new BufferedReader(
+                new FileReader(path)
+            );
 
-            if (line.equals("End")) {
-                break;
-            }
+            String line;
 
-            try {
+            while ((line = websitesDataReader.readLine()) != null) {
                 Visit visit = parseVisit(line);
                 statistics.addVisit(visit);
-            } catch (InvalidRecordException e) {
-                System.out.println(e.getMessage());
             }
+
+            websitesDataReader.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (InvalidRecordException e) {
+            System.out.println(e.getMessage());
         }
 
         statistics.printStatistics();
     }
 
     public static Visit parseVisit(String line) throws InvalidRecordException {
-        String dateRegex = "\\d{2}\\.\\d{2}\\.\\d{4} \\d{2}:\\d{2}:\\d{2} \\S+";
-        String urlRegex = "[a-zA-Z0-9]+\\.[a-zA-Z]+";
+        String dateRegex = "\\d{2}\\.\\d{2}\\.\\d{4} \\d{2}:\\d{2}:\\d{2} https?://\\S+";
+        String urlRegex = "https?://\\S+";
 
         if (!line.matches(dateRegex)) {
             throw new InvalidRecordException();

@@ -3,13 +3,24 @@ import java.util.ArrayList;
 
 public class WebsiteStatistics {
     public ArrayList<Visit> visits;
+    public ArrayList<Website> websites;
 
     public WebsiteStatistics() {
-        visits = new ArrayList<>();
+        this.visits = new ArrayList<>();
+        this.websites = new ArrayList<>();
     }
 
     public void addVisit(Visit visit) {
         visits.add(visit);
+
+        for (Website website : websites) {
+            if (website.url.equals(visit.getURL())) {
+                website.plusVisit();
+                return;
+            }
+        }
+
+        websites.add(new Website(visit.getURL(), 1));
     }
 
     public void printStatistics() {
@@ -40,6 +51,18 @@ public class WebsiteStatistics {
             finalText.append(" visits");
 
             System.out.println(finalText.toString());
+        }
+
+        if (!websites.isEmpty()) {
+            Website leastVisited = websites.get(0);
+
+            for (Website website : websites) {
+                if (website.visits < leastVisited.visits) {
+                    leastVisited = website;
+                }
+            }
+
+            System.out.println("Least visited website: " + leastVisited.url + ": " + leastVisited.visits);
         }
     }
 }
