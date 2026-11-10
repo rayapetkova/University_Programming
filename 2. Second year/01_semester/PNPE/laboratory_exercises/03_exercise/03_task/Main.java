@@ -1,4 +1,9 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -34,6 +39,41 @@ public class Main {
             }
 
             System.out.println("Average grade: " + course.averageGrade());
+        }
+
+        File coursesFile = new File("D:\\all downloads\\java_files\\courses.txt");
+        File studentsFile = new File("D:\\all downloads\\java_files\\students.txt");
+
+        try {
+            if (coursesFile.createNewFile() && studentsFile.createNewFile()) {
+                System.out.println("Successfully created file.");
+
+                BufferedWriter coursesWriter = new BufferedWriter(
+                    new FileWriter(coursesFile)
+                );
+                BufferedWriter studentsWriter = new BufferedWriter(
+                    new FileWriter(studentsFile)
+                );
+
+                for (Course course : courses) {
+                    String courseText = course.getClass().getName() + String.valueOf(course.averageGrade());
+
+                    coursesWriter.write(courseText);
+                    coursesWriter.newLine();
+
+                    for (Student student : course.students) {
+                        studentsWriter.write(student.getName() + ": ");
+                        studentsWriter.write(Arrays.toString(student.getGrades()));
+                    }
+                }
+
+                coursesWriter.close();
+                studentsWriter.close();
+            } else {
+                System.out.println("Already created");
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file.");
         }
     }
 }
